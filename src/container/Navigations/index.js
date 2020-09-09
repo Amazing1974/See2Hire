@@ -11,7 +11,7 @@ import OnboardingScreen from '../auth/onboarding';
 import LandingScreen from '../auth/landing';
 
 import HomeScreen from '../home/home';
-import ProfileScreen from '../home/profile';
+import ProfileScreen from '../home/profile_company';
 import SettingScreen from '../home/setting';
 import EditPhotoScreen from '../home/edit_photo';
 import EditVideoScreen from '../home/edit_video';
@@ -48,7 +48,7 @@ const SettingNavigator = (props) => {
   )
 }
 
-const HomeNavigator = ({navigation}) => {
+const CompanyNavigator = ({navigation}) => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -63,8 +63,6 @@ const HomeNavigator = ({navigation}) => {
             iconName = focused ? 'person-circle' : 'person-circle-outline';
           } else if (route.name === 'setting') {
             iconName = focused ? 'settings' : 'settings-outline';
-          } else if (route.name === 'search') {
-            iconName = 'search';
           }
 
           // You can return any component that you like here!
@@ -87,7 +85,6 @@ const HomeNavigator = ({navigation}) => {
       <Tab.Screen name="home" component={HomeScreen} />
       <Tab.Screen name="profile" component={ProfileNavigator} />
       <Tab.Screen name="setting" component={SettingNavigator} />
-      <Tab.Screen name="search" component={HomeScreen} />
     </Tab.Navigator>
   );
 }
@@ -102,7 +99,8 @@ const Navigation = (user) => {
       <Stack.Screen name="SMSVerification" component={SMSVerificationScreen} options={{headerShown: false}} />
       <Stack.Screen name="Onboarding" component={OnboardingScreen} options={{headerShown: false}} />
       <Stack.Screen name="Signup" component={SignupScreen} options={{headerShown: false}} />
-      <Stack.Screen name="Home" component={HomeNavigator} options={{headerShown: false}} />
+      <Stack.Screen name="Home_Company" component={CompanyNavigator} options={{headerShown: false}} />
+      <Stack.Screen name="Home_Talent" component={ProfileNavigator} options={{headerShown: false}} />
     </Stack.Navigator>
 
   );

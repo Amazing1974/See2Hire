@@ -68,6 +68,10 @@ const reducer = (state = INITIAL_STATE, action) => {
             return {...state, experiences: action.payload};
         case 'SET_OTP':
             return {...state, otp: action.payload};
+        case 'SET_TOKEN':
+            return {...state, token: action.payload};
+        case 'SET_COMPANY_PROFILE':
+            return {...state, company_profile: action.payload};
         default:
             return state;
     }

@@ -18,7 +18,7 @@ const ProfileAvatar = (props) => {
         <Container>
             <RowContainer>
                 <AvatarContainer>
-                    <UserAvatar source={props.path == '' ? require('../../../assets/user.png') : {uri: props.path}} />
+                    <UserAvatar source={props.path == '' || props.path == null ? require('../../../assets/user.png') : {uri: props.path}} />
                     <EditButton onPress={()=>props.onPress()}>
                         <Icon name={'pencil-outline'} size={20} color={'#358FC0'} />
                     </EditButton>

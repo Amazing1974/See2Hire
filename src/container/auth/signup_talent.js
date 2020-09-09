@@ -33,10 +33,37 @@ const login = (props) => {
     //   setLoadingScreen(false);
     //   alert(err);
     // });
-    props.setFirstName(data.name);
-    props.setLastName('');
-    props.setPhone(data.phone);
-    navigation.navigate('SMSVerification', {data});
+    var formdata = new FormData();
+    formdata.append("type", "talent");
+    formdata.append("phone", data.phone);
+    formdata.append("first_name", data.first_name);
+    formdata.append("middle_name", data.middle_name);
+    formdata.append("last_name", data.last_name);
+
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow'
+    };
+
+    fetch("http://wordpresswebsiteprogrammer.com/see2hire/api/register", requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        res = JSON.parse(result);
+        if(res.status == true) {
+          props.setOtp(res.opt);
+          props.setFirstName(data.first_name);
+          props.setLastName('');
+          props.setPhone(data.phone);
+          navigation.navigate('SMSVerification');
+        }
+      })
+      .catch(error => console.log('error', error));
+
+    // props.setFirstName(data.name);
+    // props.setLastName('');
+    // props.setPhone(data.phone);
+    // navigation.navigate('SMSVerification');
   }
 
   return (

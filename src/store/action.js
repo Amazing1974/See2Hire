@@ -121,3 +121,13 @@ export const setOtp = otp => ({
   type: 'SET_OTP',
   payload: otp
 })
+
+export const setToken = token => ({
+  type: 'SET_TOKEN',
+  payload: token
+})
+
+export const setCompanyProfile = data => ({
+  type: 'SET_COMPANY_PROFILE',
+  payload: data
+})

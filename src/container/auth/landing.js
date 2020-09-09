@@ -35,7 +35,7 @@ const landing = (props) => {
       })
       // props.navigation.navigate('Home');
     } else {
-      !isTalent ? navigation.navigate('SignupTalent') : navigation.navigate('Signup');
+      !isTalent ? props.navigation.navigate('SignupTalent') : props.navigation.navigate('Signup');
     }
     console.log('phone = ', phone);
     console.log('isTalent = ', isTalent);

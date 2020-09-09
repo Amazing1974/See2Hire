@@ -71,7 +71,7 @@ const smsVerification = (props) => {
 				
 			<Logo source={logoImg} />
 			<Main>
-				<TextView color={'#1a1a1c'}>Enter 6 digit code we have sent you at +0 000 000 000</TextView>
+				<TextView color={'#1a1a1c'}>Enter 6 digit code we have sent you at {props.phone}</TextView>
 				<WidgetContainer>
 					<SmoothPinCodeInput
 						codeLength={6}

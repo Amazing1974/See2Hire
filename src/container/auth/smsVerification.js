@@ -8,6 +8,19 @@ import {
 	setMiddleName,
 	setLastName,
 	setEmail,
+	setAvatar,
+	setAddressStreet,
+	setAddressCity,
+	setAddressState,
+	setAddressZip,
+	setVideo,
+	setVideoCover,
+	setOverview,
+	setProfileSkill,
+	setProfileProfession,
+	setProfileExperience,
+	setToken,
+	setCompanyProfile,
 } from '../../store/action';
 
 import SMSVerification from '../../component/view/auth/smsVerification';
@@ -17,22 +30,8 @@ const smsVerification = (props) => {
 	const [makeCallToDriver] = useMutation(MAKE_CALL);
 	const [driverVerifyNumber] = useMutation(VERIFY_NUMBER);
 	const [isProceeded, setProceeded] = useState(true);
-	// const { data } = props.route.params;
 	
 	function onProcced(pin) {
-	// 	const pinData = {'mobileNumber': data.mobileNumber, 'token': pin};
-    // driverVerifySecretCode({
-	// 		variables: pinData,
-	// 	}).then((res) => {
-	// 		console.log(res);
-	// 		if (res.data.driverVerifySecretCode.user.id !== null) {
-	// 			setProceeded(false);
-	// 			props.navigation.navigate('PersonalData', { data });
-	// 		}
-	// 	}).catch((err) => {
-	// 		// eslint-disable-next-line no-alert
-	// 		alert(err);
-	// 	});
 	console.log('entered otp = ', pin);
 	
 		var formdata = new FormData();
@@ -50,10 +49,43 @@ const smsVerification = (props) => {
 		
 		fetch("http://wordpresswebsiteprogrammer.com/see2hire/api/opt_verify", requestOptions)
 		.then(response => response.text())
-		.then(result => {
-			console.log(result);
+		.then(res => {
+			result = JSON.parse(res);
 			if(result.status == true) {
-
+				props.setAddressStreet(result.data.street_address);
+				props.setAddressCity(result.data.city_id);
+				props.setAddressState(result.data.state_id);
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				  };
+				  
+				  fetch("http://wordpresswebsiteprogrammer.com/see2hire/api/"+(props.isTalent?'talent':'company')+"/profile/"+result.api_token, requestOptions)
+					.then(response => response.text())
+					.then(res => {
+						result = JSON.parse(res);
+						console.log(result);
+						if(props.isTalent) {
+							if(result.status == true) {
+								props.setFirstName(result.data.first_name);
+								props.setMiddleName(result.data.middle_name);
+								props.setLastName(result.data.last_name);
+								props.setEmail(result.data.email);
+								props.setAvatar(result.data.image);
+								props.setVideo(result.data.video);
+								
+								props.setOverview(result.data.about_me);
+								props.setProfileExperience(result.data.profileCvs);
+								props.setProfileSkill(result.data.profileSkills);
+								props.setProfileProfession(result.data.profileEducation);
+								props.navigation.navigate('Home_Talent');
+							}
+						} else {
+							setCompanyProfile(result.data);
+							props.navigation.navigate('Home_Company');
+						}
+					})
+					.catch(error => console.log('error', error));
 			}
 		})
 		.catch(error => console.log('error', error));
@@ -98,8 +130,24 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
-        
-      }, dispatch);
+        setFirstName,
+		setMiddleName,
+		setLastName,
+		setEmail,
+		setAvatar,
+		setAddressStreet,
+		setAddressCity,
+		setAddressState,
+		setAddressZip,
+		setVideo,
+		setVideoCover,
+		setOverview,
+		setProfileSkill,
+		setProfileProfession,
+		setProfileExperience,
+		setToken,
+		setCompanyProfile,
+	}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(smsVerification);

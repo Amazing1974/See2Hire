@@ -55,7 +55,7 @@ const EmailSetting = (props) => {
                     {file == '' ? (
                         <Icon name={'user'} color={'#fff'} size={110} />
                     ) : (
-                        <Avatar source={{uri: file}} />
+                        <Avatar source={{uri: file == null ? '' : file}} />
                     )}
                     <AvatarEditContainer>
                         <EditIcon name={'pencil-outline'} color={'#358FC0'} size={20} />
